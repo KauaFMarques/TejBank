@@ -1,5 +1,7 @@
 package com.Bank.tujbank.enums;
 
+import com.Bank.tujbank.validation.AccountType;
+
 import java.math.BigDecimal;
 
 public record AccountResponseDTO(

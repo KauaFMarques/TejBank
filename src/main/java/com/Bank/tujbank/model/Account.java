@@ -1,5 +1,6 @@
 package com.Bank.tujbank.model;
 
+import com.Bank.tujbank.validation.AccountType;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -24,7 +25,7 @@ public class Account {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private AccountTipe type;
+    private AccountType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
@@ -62,11 +63,11 @@ public class Account {
         this.balance = balance;
     }
 
-    public AccountTipe getType() {
+    public AccountType getType() {
         return type;
     }
 
-    public void setType(AccountTipe type) {
+    public void setType(AccountType type) {
         this.type = type;
     }
 
