@@ -9,9 +9,11 @@ import com.Bank.tujbank.model.Customer;
 import com.Bank.tujbank.repository.CustomerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +23,12 @@ import java.util.List;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final PasswordEncoder passwordEncoder;  // ✅ injetado
 
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository,
+                           PasswordEncoder passwordEncoder) {
         this.customerRepository = customerRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -39,7 +44,7 @@ public class CustomerService {
         customer.setCpf(dto.cpf());
         customer.setName(dto.name());
         customer.setEmail(dto.email());
-        customer.setPassword(dto.password());
+        customer.setPassword(passwordEncoder.encode(dto.password()));
 
         Customer salvo = customerRepository.save(customer);
 
