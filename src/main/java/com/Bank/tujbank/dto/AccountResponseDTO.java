@@ -1,14 +1,14 @@
-package com.Bank.tujbank.enums;
+package com.Bank.tujbank.dto;
 
-import com.Bank.tujbank.validation.AccountType;
+import com.Bank.tujbank.enums.AccountType;
 
 import java.math.BigDecimal;
 
 public record AccountResponseDTO(
         Long id,
-        String accountName,
+        String accountNumber,
         String agency,
         BigDecimal balance,
         AccountType type,
-        String customerName
+        String holderName     // ← 6º campo
 ) {}

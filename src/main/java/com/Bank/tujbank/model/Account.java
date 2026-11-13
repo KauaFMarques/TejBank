@@ -1,10 +1,11 @@
 package com.Bank.tujbank.model;
 
-import com.Bank.tujbank.validation.AccountType;
+import com.Bank.tujbank.enums.AccountType;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "accounts")
@@ -27,9 +28,16 @@ public class Account {
     @Column(nullable = false)
     private AccountType type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AccountHolder> holders = new ArrayList<>();
+
+    public List<AccountHolder> getHolders() {
+        return holders;
+    }
+
+    public void setHolders(List<AccountHolder> holders) {
+        this.holders = holders;
+    }
 
     public Long getId() {
         return id;
@@ -69,14 +77,6 @@ public class Account {
 
     public void setType(AccountType type) {
         this.type = type;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public void credit(BigDecimal value) {

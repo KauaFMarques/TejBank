@@ -1,6 +1,6 @@
-package com.Bank.tujbank.enums;
+package com.Bank.tujbank.dto;
 
-import com.Bank.tujbank.validation.AccountType;
+import com.Bank.tujbank.enums.AccountType;
 import jakarta.validation.constraints.NotNull;
 
 public record AccountRequestDTO (
